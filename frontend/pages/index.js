@@ -7,6 +7,10 @@ const DEFAULT_CENTER = [60.19, 24.94]
 
 export default function Home() {
 
+  /// TODO
+  /// kutsu tässä kohtaa apia joka hakee oikeat kohteet
+  /// palauta koordinaatit ja nimet
+  /// anna parametrina Map -komponentille
   const locations = {
     hospital1: [60.19632640805835, 24.884204864501957],
     hospital2: [60.19880061755633, 24.90480422973633],
