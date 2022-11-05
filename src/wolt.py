@@ -10,13 +10,13 @@ MERCHANT_ID=os.environ.get("MERCHANT_ID")
 
 API_BEARER = "Bearer " + API_KEY
 
-def get_price(e):
-    headers = {"Content-Type": "application/json", "Authorization": "{API_BEARER}".format(API_BEARER=API_BEARER)}
+def get_price(data):
+    headers = {"Content-Type": "application/json", "Authorization": "%s" % (API_BEARER)}
     #print(headers)
-    url = "https://daas-public-api.development.dev.woltapi.com/merchants/{MERCHANT_ID}/delivery-fee".format(MERCHANT_ID=MERCHANT_ID)
+    url = f"https://daas-public-api.development.dev.woltapi.com/merchants/%s/delivery-fee" % (MERCHANT_ID)
     #print(url)
-    req = requests.post(url, data=json.dumps(e), headers=headers)
-    print(req.json())
+    req = requests.post(url, data=json.dumps(data), headers=headers)
+    return req.json()
 
 
 
@@ -28,9 +28,14 @@ e = {
   },
   "dropoff": {
     "location": {
-        "formatted_address": "Otakaari 24, 02150 Espoo"
+        "formatted_address": "Leppäsuonkatu 9, 00100 Helsinki"
     }
   }
 }
 
 get_price(e)
+
+
+
+def create_pickup(data):
+  pass
