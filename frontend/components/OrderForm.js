@@ -3,6 +3,7 @@ import styles from '../styles/Home.module.css'
 
 
 const OrderForm = ({handleDecreaseClick, handleIncreaseClick, counter, newName, setNewName, address, handleSubmit}) => {
+    
     return (
         <div>
             <form className={styles.form} onSubmit={handleSubmit}>
