@@ -17,12 +17,12 @@ export default function Home() {
   // https://localhost/
   // https://localhost/test
   const [newName, setNewName] = useState('')
-  const [newAddress, setNewAddress] = useState('')
   const [locations, setLocations] = useState({});
-  const [counter, setCounter] = useState(0)
-  const [address, setAddress] = useState('')
   const [info, setInfo] = useState({})
-  const [library, setLibrary] = useState({})
+  const [dropOff, setDropOff] = useState({})
+  const [dropOffSelected, setDropOffSelected] = useState(false);
+  const [trackUrl, setTrackUrl] = useState('');
+  const [showTrackUrl, setShowTrackUrl] = useState(false);
 
   async function getLocations() {
     const res = await axios.get('http://localhost:5000/find_places');
@@ -33,24 +33,52 @@ export default function Home() {
     getLocations();
   }, []);
 
-  const handleIncreaseClick = (event) => {
-    event.preventDefault();
-    setCounter(counter+1)
+  const dropOffSelection = (dropoff) => {
+    console.log("DROP OFF SELECTION FIRED")
+    setDropOffSelected(true);
+    setDropOff(dropoff);
   }
 
-  const handleDecreaseClick = (event) => {
-    event.preventDefault();
-    if (counter > 0) {
-      setCounter(counter-1);
-    }
+  const handleSubmitAddress = async (address, housenumber, postalcode, city, name) => {
+    console.log(address, housenumber, postalcode, city, name)
+    console.log("lib" + dropOff)
+    console.log("GUGU")
+    const res = await axios.post('http://localhost:5000/send_order', {
+      address: address,
+      housenumber: housenumber, 
+      postcode: postalcode,
+      city: city,   
+      name: name,
+      dropCoordinates: dropOff
+    })
+    setTrackUrl(res.data);
+    setShowTrackUrl(true);
   }
 
-  const handleSubmitAddress = async (event) => {
-    event.preventDefault();
-    setAddress(newAddress);
+  if(showTrackUrl) {
+    return(
+      <main>
+      <Head>
+        <title>GetRidOfIt</title>
+      </Head>
+      <div>
+        <div className={styles.container}>
+          <div style={{ width: "50%"}}>
+            <div className={styles.form}>
+              <h1 className={styles.h1}>Your order has been sent!</h1><br/>
+              Track your order here: <a href={trackUrl}>{trackUrl}</a>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </main>
+    )
   }
 
-  return (
+  if(!dropOffSelected) {
+    return(
     <main>
       <Head>
         <title>GetRidOfIt</title>
@@ -58,18 +86,39 @@ export default function Home() {
       <div>
         <div className={styles.container}>
           <div style={{ width: "50%"}}>
-                <AddressForm setInfo={setInfo} handleDecreaseClick={handleDecreaseClick}
-                  handleIncreaseClick={handleIncreaseClick}
-                  counter={counter}
-                  setNewName={setNewName}
-                  newName={newName}
-                  handleSubmit={handleSubmitAddress}
-                  selectedLibrary = {library}
-                  />
+            <div className={styles.form}>
+              Select drop of from the map.
+            </div>
+
           </div>
-          <Map coordinates={DEFAULT_CENTER} locations={locations} info={info} setDropOff = {setLibrary}/>
+
+          <Map coordinates={DEFAULT_CENTER} locations={locations} info={info} dropOffSelection={dropOffSelection}/>
         </div>
       </div>
     </main>
-  )
+    )
+  } else {
+    return (
+      <main>
+        <Head>
+          <title>GetRidOfIt</title>
+        </Head>
+        <div>
+          <div className={styles.container}>
+            <div style={{ width: "50%"}}>
+                  <AddressForm 
+                    setNewName={setNewName}
+                    newName={newName}
+                    handleSubmitAddress={handleSubmitAddress}
+                    />
+            </div>
+  
+            <Map coordinates={DEFAULT_CENTER} locations={locations} info={info} setDropOff={dropOffSelection}/>
+          </div>
+        </div>
+      </main>
+    )
+  }
+
+  
 }

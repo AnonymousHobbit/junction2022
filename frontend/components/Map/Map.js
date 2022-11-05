@@ -9,14 +9,9 @@ import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
-const Map = ({ coordinates, locations, info, setDropOff }) => {
+const Map = ({ coordinates, locations, info, dropOffSelection }) => {
     const [position, setPosition] = useState(coordinates);
     const [price, setPrice] = useState('')
-
-    const handleClick = (e) => {
-        const { lat, lng } = e.latlng;
-        setPosition(e.latlng);
-    }
 
     useEffect(() => {
         (async function init() {
@@ -32,8 +27,8 @@ const Map = ({ coordinates, locations, info, setDropOff }) => {
 
     const selectDropoff = (key) => {
         console.log('dropoff selected')
-        console.log(key)
-        setDropOff(key)
+        console.log("KEY" +key)
+        dropOffSelection(key)
     }
 
     const findAddress = async (latlng) => {
@@ -56,7 +51,7 @@ const Map = ({ coordinates, locations, info, setDropOff }) => {
             }}>
                 <Popup position={locations[key]}>
                     Drop-off alternative: <pre>{key.split(',')[0]}, price: {price[0]} <br></br> esimated duration of shipment: {price[1]}</pre>
-                    <button onClick = {e => selectDropoff(locations[key])} >select this drop-off location</button>
+                    <button onClick={e => selectDropoff(locations[key])} >select this drop-off location</button>
                 </Popup>
             </Marker>
             ))}

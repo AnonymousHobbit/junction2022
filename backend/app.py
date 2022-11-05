@@ -6,6 +6,11 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 
 import wolt
 
+@app.route("/send_order", methods=["POST"])
+def send_order():
+    data = request.get_json()
+    print(data)
+    return wolt.get_delivery_order(data)
 
 @app.route('/find_address', methods = ['GET', 'POST'])
 def find_address():
@@ -31,7 +36,7 @@ def find_address():
         address_dict = {'address': address}
         test_address_dict = {'address': test_address}
         price = wolt.get_delivery_price(address_dict, test_address_dict)
-        print(price)
+        print(price)    
         return price
 
 @app.route('/find_places', methods = ['GET', 'POST'])
@@ -58,21 +63,6 @@ def find_places():
 
     #print(places)
     return places
-
-
-@app.route('/show_map')
-def show_map():
-    # paramretrit:
-        # lista koordinaateista mitä näytetään
-    # näistä togglet kartalle
-    # jotenkin pitää hoitaa togglen klikkaaminen
-        # lähettää api pyynnön woltille josta saadaan hinta nykysestä pisteestä tähän pisteeseen
-        # näyttää hinnan kartalla
-    # toinen event lähetyskohteen valitsemiselle
-    # sulkee pop up ikkunan ja valitsee tämän lähetyskohteen koordinaatit lomakkeeksi
-    start_coords = (60.19, 24.94)
-    folium_map = folium.Map(location=start_coords, zoom_start=14)
-    return folium_map._repr_html_()
 
 
 if __name__ == "__main__":

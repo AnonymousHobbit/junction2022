@@ -10,6 +10,20 @@ MERCHANT_ID=os.environ.get("MERCHANT_ID")
 
 API_BEARER = "Bearer " + API_KEY
 
+
+def coord_to_addr(coords):
+  lat = float(coords[0])
+  lon =  float(coords[1])
+  url = f'https://nominatim.openstreetmap.org/reverse?lat={lat}&lon={lon}&format=json'
+  req = requests.get(url)
+  print(req.json())
+  
+  address = req.json()["address"]["road"] + " " + req.json()["address"]["house_number"] + ", " + req.json()["address"]["postcode"] + " " + req.json()["address"]["city"]
+  print(address)
+  return address
+
+
+
 def get_price(delivery_price_json):
     headers = {"Content-Type": "application/json", "Authorization": "{API_BEARER}".format(API_BEARER=API_BEARER)}
     url = "https://daas-public-api.development.dev.woltapi.com/merchants/{MERCHANT_ID}/delivery-fee".format(MERCHANT_ID=MERCHANT_ID)
@@ -62,33 +76,31 @@ def write_delivery_price_json(map_data, form_data):
   }
   return delivery_price_json
 
-def write_delivery_order_json(map_data, form_data):
+def write_delivery_order_json(data):
   """This funktion builds json that will be used for API to create delivery order
     Args: data from user form
 
     Return: json formatted delivery price request
   """
   # Create variables from map data to be used for pickup address
-  roadName = map_data["address"]["road"]
-  houseNumber = map_data["address"]["house number"]
-  cityName = map_data["address"]["city"]
-  postalCode = map_data["address"]["postcode"] 
+  roadName = data["address"]
+  houseNumber = data["housenumber"]
+  cityName = data["city"]
+  postalCode = data["postcode"] 
   pickupAddress = roadName + " " + houseNumber + ", " + postalCode + " " + cityName
 
+  """
   # Create variables from form data to be used for dropoff address
   roadName = form_data["address"]["road"]
   houseNumber = form_data["address"]["house number"]
   cityName = form_data["address"]["city"]
   postalCode = form_data["address"]["postcode"]
   dropoffAddress = roadName + " " + houseNumber + ", " + postalCode + " " + cityName
-
-  # Create variables from form data to be used for item info
-  itemDescription = form_data["items"]["description"]
-  itemCount = form_data["items"]["count"]
+  """
 
   # Create variables from form data to be used for sender info
   pickupContactName = "string"
-  
+  coordAddress = coord_to_addr(data["dropCoordinates"])
   # Create variables from form data to be used for receiver info
   dropoffContanctName = "string"
 
@@ -106,7 +118,7 @@ def write_delivery_order_json(map_data, form_data):
     },
     "dropoff": {
       "location": {
-        "formatted_address": dropoffAddress
+          "formatted_address": coordAddress
       },
       "contact_details": {
         "name": dropoffContanctName,
@@ -124,8 +136,8 @@ def write_delivery_order_json(map_data, form_data):
     "is_no_contact": True,
     "contents": [
       {
-        "count": itemCount,
-        "description": itemDescription,
+        "count": 1,
+        "description": "itemDescription",
         "identifier": "12345",
         "tags": []
       }
@@ -154,7 +166,7 @@ def get_delivery_price(map_data, form_data):
   delivery_time = delivery_price_json["time_estimate_minutes"]
   return [delivery_price, delivery_time]
 
-def get_delivery_order(map_data, form_data):
+def get_delivery_order(data):
   """This funktion creates delivery order from API
     
     Args: data from user form
@@ -162,7 +174,11 @@ def get_delivery_order(map_data, form_data):
     Return: delivery order API link
   
   """
-  delivery_order_json = write_delivery_order_json(map_data, form_data)
+  print(data)
+
+
+  delivery_order_json = write_delivery_order_json(data)
+  #print(delivery_order_json)
   delivery_order = get_delivery(delivery_order_json)
   delivery_order_link = delivery_order["tracking"]["url"]
   return delivery_order_link
