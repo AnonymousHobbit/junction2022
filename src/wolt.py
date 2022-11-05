@@ -169,11 +169,3 @@ def get_delivery_order(map_data, form_data):
   return delivery_order_link
 
 
-test = get_delivery_price("data", "form_data")
-
-import webbrowser
-
-url = test
-
-webbrowser.open(url, new=0, autoraise=True)
-
