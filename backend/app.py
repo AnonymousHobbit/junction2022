@@ -6,19 +6,6 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 
 import wolt
 
-@app.route("/")
-def hello_world():
-    return "Hello, World!"
-
-@app.route("/test")
-def test():
-    locations = {
-        "hospital1": [60.19632640805835, 24.884204864501957],
-        "hospital2": [60.19880061755633, 24.90480422973633],
-        "hospital3": [60.20170117734748, 24.94205474853516],
-    }
-
-    return locations
 
 @app.route('/find_address', methods = ['GET', 'POST'])
 def find_address():
