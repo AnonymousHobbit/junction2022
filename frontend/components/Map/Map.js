@@ -56,7 +56,7 @@ const Map = ({ coordinates, locations }) => {
             }}>
                 <Popup position={locations[key]}>
                     Drop-off alternative: <pre>{key.split(',')[0]}, price: {price[0]} <br></br> esimated duration of shipment: {price[1]}</pre>
-                    <button onClick = {e => selectDropoff(key)} >select this drop-off location</button>
+                    <button onClick = {e => selectDropoff(locations[key])} >select this drop-off location</button>
                 </Popup>
             </Marker>
             ))}
