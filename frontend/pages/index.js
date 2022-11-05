@@ -23,7 +23,7 @@ export default function Home() {
   const [counter, setCounter] = useState(0)
 
   async function getLocations() {
-    const res = await axios.get('http://localhost:5000/test');
+    const res = await axios.get('http://localhost:5000/find_places');
     setLocations(res.data);
   }
 
