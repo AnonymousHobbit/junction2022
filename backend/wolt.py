@@ -64,17 +64,15 @@ def write_delivery_price_json(map_data, form_data):
 
 def write_delivery_order_json(map_data, form_data):
   """This funktion builds json that will be used for API to create delivery order
-    
     Args: data from user form
 
     Return: json formatted delivery price request
-  
   """
   # Create variables from map data to be used for pickup address
   roadName = map_data["address"]["road"]
   houseNumber = map_data["address"]["house number"]
   cityName = map_data["address"]["city"]
-  postalCode = map_data["address"]["postcode"]  
+  postalCode = map_data["address"]["postcode"] 
   pickupAddress = roadName + " " + houseNumber + ", " + postalCode + " " + cityName
 
   # Create variables from form data to be used for dropoff address
@@ -141,11 +139,9 @@ def write_delivery_order_json(map_data, form_data):
 
 def get_delivery_price(map_data, form_data):
   """This funktion gets delivery price from API
-    
     Args: data from user form
 
     Return: delivery price, esiimated delivery time
-  
   """
   # Create json for delivery price request
   delivery_price_json = write_delivery_price_json(map_data, form_data)
