@@ -50,6 +50,7 @@ const Map = ({ coordinates, locations }) => {
             }}>
                 <Popup position={locations[key]}>
                     Drop-off alternative: <pre>{key.split(',')[0]}, price: {price[0]} <br></br> esimated duration of shipment: {price[1]}</pre>
+                    <button>select this drop-off location</button>
                 </Popup>
             </Marker>
             ))}
