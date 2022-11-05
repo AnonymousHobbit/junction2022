@@ -34,7 +34,7 @@ const Map = ({ coordinates, locations }) => {
         console.log(latlng)
         let res = await axios.post(`http://localhost:5000/find_address`, {latlng})
         console.log(res.data)
-        ///setPrice()
+        setPrice(res.data)
     }
     return (
         <MapContainer center={coordinates} zoom={13} scrollWheelZoom={false} style={{ height: "95vh", width: "50%" }}>
@@ -49,7 +49,7 @@ const Map = ({ coordinates, locations }) => {
                 }
             }}>
                 <Popup position={locations[key]}>
-                    Drop-off alternative: <pre>{JSON.stringify(key.split(',')[0], null, 2)}</pre>
+                    Drop-off alternative: <pre>{key.split(',')[0]}, price: {price[0]} <br></br> esimated duration of shipment: {price[1]}</pre>
                 </Popup>
             </Marker>
             ))}
@@ -66,5 +66,7 @@ const Map = ({ coordinates, locations }) => {
         </MapContainer>
     )
 }
+
+///key.split(',')[0]
 
 export default Map
