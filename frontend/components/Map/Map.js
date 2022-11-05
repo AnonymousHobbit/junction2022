@@ -11,6 +11,8 @@ import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
 const Map = ({ coordinates, locations }) => {
     const [position, setPosition] = useState(coordinates);
+    const [price, setPrice] = useState('')
+    const [dropOff, setDropOff] = useState('')
 
     const handleClick = (e) => {
         const { lat, lng } = e.latlng;
@@ -29,9 +31,17 @@ const Map = ({ coordinates, locations }) => {
         })();
     }, []);
 
+    const selectDropoff = (key) => {
+        console.log('dropoff selected')
+        console.log(key)
+        setDropOff(key)
+    }
+
     const findAddress = async (latlng) => {
         console.log(latlng)
         let res = await axios.post(`http://localhost:5000/find_address`, {latlng})
+        console.log(res.data)
+        setPrice(res.data)
     }
     return (
         <MapContainer center={coordinates} zoom={13} scrollWheelZoom={false} style={{ height: "95vh", width: "50%" }}>
@@ -46,7 +56,8 @@ const Map = ({ coordinates, locations }) => {
                 }
             }}>
                 <Popup position={locations[key]}>
-                    Drop-off alternative: <pre>{JSON.stringify(key, null, 2)}</pre>
+                    Drop-off alternative: <pre>{key.split(',')[0]}, price: {price[0]} <br></br> esimated duration of shipment: {price[1]}</pre>
+                    <button onClick = {e => selectDropoff(locations[key])} >select this drop-off location</button>
                 </Popup>
             </Marker>
             ))}
@@ -63,5 +74,7 @@ const Map = ({ coordinates, locations }) => {
         </MapContainer>
     )
 }
+
+///key.split(',')[0]
 
 export default Map
