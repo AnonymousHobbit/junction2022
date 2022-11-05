@@ -9,10 +9,9 @@ import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
-const Map = ({ coordinates, locations, info }) => {
+const Map = ({ coordinates, locations, info, setDropOff }) => {
     const [position, setPosition] = useState(coordinates);
     const [price, setPrice] = useState('')
-    const [dropOff, setDropOff] = useState('')
 
     const handleClick = (e) => {
         const { lat, lng } = e.latlng;

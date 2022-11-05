@@ -10,6 +10,8 @@ import wolt
 @app.route('/find_address', methods = ['GET', 'POST'])
 def find_address():
     if request.method == 'POST':
+        info = request.json['info']
+        print(info)
         latlng = request.json["latlng"]
         lat = latlng['lat']
         lon = latlng['lng']
