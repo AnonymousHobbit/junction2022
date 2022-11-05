@@ -1,10 +1,10 @@
 
 import styles from '../styles/Home.module.css'
 
-const AddressForm = ({newAddress, setNewAddress}) => {
+const AddressForm = ({newAddress, setNewAddress, handleSubmit}) => {
     return (
       <div>
-      <form className={styles.form} >
+      <form className={styles.form} onSubmit={handleSubmit}>
           <h1 className={styles.h1}>Search for Libraries</h1>
           <label className={styles.label}> Address</label>
           <input className={styles.input}value={newAddress} onChange={(e) => setNewAddress(e.target.value)} />

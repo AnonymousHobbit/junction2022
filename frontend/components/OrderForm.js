@@ -2,10 +2,10 @@
 import styles from '../styles/Home.module.css'
 
 
-const OrderForm = ({handleDecreaseClick, handleIncreaseClick, counter, newName, setNewName, address}) => {
+const OrderForm = ({handleDecreaseClick, handleIncreaseClick, counter, newName, setNewName, address, handleSubmit}) => {
     return (
         <div>
-        <form className={styles.form} >
+            <form className={styles.form} onSubmit={handleSubmit}>
             <h1 className={styles.h1}>Create Order</h1>
             <label className={styles.label}>Name</label>
             <input className={styles.input} value={newName} onChange={(e) => setNewName(e.target.value)} />
@@ -18,7 +18,7 @@ const OrderForm = ({handleDecreaseClick, handleIncreaseClick, counter, newName, 
                 <span>{counter}</span>
                 <button onClick={handleIncreaseClick}>+</button>
             </div>
-            <input  value={"Submit Order"} className={styles.button} type="submit"/>
+            <input  value={"Submit Order"} className={styles.button} type="submit"  />
           </form>
         </div>
     )

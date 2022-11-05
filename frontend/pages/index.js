@@ -21,6 +21,7 @@ export default function Home() {
   const [newAddress, setNewAddress] = useState('')
   const [locations, setLocations] = useState({});
   const [counter, setCounter] = useState(0)
+  const [address, setAddress] = useState('')
 
   async function getLocations() {
     const res = await axios.get('http://localhost:5000/find_places');
@@ -43,9 +44,9 @@ export default function Home() {
     }
   }
 
-  const addAddress = () => {
-
-
+  const handleSubmitAddress = async (event) => {
+    event.preventDefault();
+    setAddress(newAddress);
   }
 
   return (
@@ -56,7 +57,7 @@ export default function Home() {
       <div>
         <div className={styles.container}>
           <div style={{ width: "50%"}}>
-                <AddressForm newAddress={newAddress} setNewAddress={setNewAddress}
+                <AddressForm newAddress={newAddress} setNewAddress={setNewAddress} handleSubmit={handleSubmitAddress} 
                 />
                 <OrderForm
                   handleDecreaseClick={handleDecreaseClick}
@@ -64,7 +65,8 @@ export default function Home() {
                   counter={counter}
                   setNewName={setNewName}
                   newName={newName}
-                  address={newAddress}/>
+                  address={address}
+                  handleSubmit={handleSubmitAddress} />
           </div>
           <Map coordinates={DEFAULT_CENTER} locations={locations} />
         </div>
