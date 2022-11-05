@@ -6,6 +6,26 @@ import Map from '../components/Map';
 
 const DEFAULT_CENTER = [60.19, 24.94]
 
+const Form = ({name}) => {
+  return (
+  <form>
+    <label>
+      Name: 
+      <textarea>
+        {name}
+      </textarea>
+      <input type="text" name="name" />
+    </label>
+    <input type="submit" value="Submit" />
+  </form>
+  )
+
+  // nimi
+  // tuote (muovipussi)
+  // osoite
+  // valitaan kierrätyskeskuksen tyyppi aka. kierrätyskeskus // ukrainan lahjotukset // pullonpalautus --> nää lähetetään findplaces routelle
+}
+
 export default function Home() {
 
   /// TODO
@@ -24,7 +44,7 @@ export default function Home() {
   useEffect(() => {
     getLocations();
   }, []);
-  
+
   return (
     <main>
       <Head>
@@ -33,8 +53,7 @@ export default function Home() {
 
       <div className={styles.container}>
         <Map coordinates={DEFAULT_CENTER} locations={locations} />
-
-        
+        <Form/>
       </div>
     </main>
   )
