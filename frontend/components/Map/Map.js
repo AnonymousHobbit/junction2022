@@ -45,11 +45,12 @@ const Map = ({ coordinates, locations }) => {
             {Object.keys(locations).map((key) => (
             <Marker key = {key} position={locations[key]} eventHandlers={{
                 click: (e) => {
+                    console.log(e)
                     findAddress(e.latlng)
                 }
             }}>
                 <Popup position={locations[key]}>
-                    Drop-off alternative: <pre>{JSON.stringify(key, null, 2)}</pre>
+                    Drop-off alternative: <pre>{JSON.stringify(key.split(',')[0], null, 2)}</pre>
                 </Popup>
             </Marker>
             ))}

@@ -22,14 +22,15 @@ def find_address():
         #print(address)
         test_address = {
             'road': 'jeeroad',
-            'housenumber': 2,
+            'house_number': '2',
             'postcode': '00100',
             'city': 'Helsinki'
         }
+        address_dict = {'address': address}
         test_address_dict = {'address': test_address}
-        price = wolt.get_delivery_price(address, test_address_dict)
-        print(price)
-        return address
+        price = wolt.get_delivery_price(address_dict, test_address_dict)[0]
+        time = wolt.get_delivery_price(address_dict, test_address_dict)[1]
+        return [price, time]
 
 @app.route('/find_places', methods = ['GET', 'POST'])
 def find_places():

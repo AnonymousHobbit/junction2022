@@ -35,14 +35,14 @@ def write_delivery_price_json(map_data, form_data):
   """
   # Create variables from map data to be used for pickup address
   roadName = map_data["address"]["road"]
-  houseNumber = map_data["address"]["house number"]
+  houseNumber = map_data["address"].get('house_number', '1')
   cityName = map_data["address"]["city"]
   postalCode = map_data["address"]["postcode"]  
   pickupAddress = roadName + " " + houseNumber + ", " + postalCode + " " + cityName
 
   # Create variables from form data to be used for dropoff address
   roadName = form_data["address"]["road"]
-  houseNumber = form_data["address"]["house number"]
+  houseNumber = form_data["address"].get('house_number', '1')
   cityName = form_data["address"]["city"]
   postalCode = form_data["address"]["postcode"]
   dropoffAddress = roadName + " " + houseNumber + ", " + postalCode + " " + cityName
@@ -140,6 +140,8 @@ def write_delivery_order_json(map_data, form_data):
   return delivery_order_json
 
 def get_delivery_price(map_data, form_data):
+  print('mao data', map_data)
+  print('form data', form_data)
   """This funktion gets delivery price from API
     
     Args: data from user form
