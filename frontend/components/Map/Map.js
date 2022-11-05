@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Popup, Marker } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
+import axios from 'axios'
 
 import L from 'leaflet';
 
@@ -28,6 +29,11 @@ const Map = ({ coordinates, locations }) => {
             });
         })();
     }, []);
+
+    const findAddress = async (latlng) => {
+        console.log(latlng)
+        let res = await axios.post(`http://localhost:5000/find_address`, {latlng})
+    }
     
     return (
         <MapContainer center={coordinates} zoom={13} scrollWheelZoom={false} style={{ height: "100vh", width: "50%" }}>
@@ -38,9 +44,13 @@ const Map = ({ coordinates, locations }) => {
             
            
             {Object.keys(locations).map((key) => (
-            <Marker position={locations[key]}>
+            <Marker key = {key} position={locations[key]} eventHandlers={{
+                click: (e) => {
+                    findAddress(e.latlng)
+                }
+            }}>
                 <Popup position={locations[key]}>
-                    Current location: <pre>{JSON.stringify(locations[key], null, 2)}</pre>
+                    Drop-off alternative: <pre>{JSON.stringify(key, null, 2)}</pre>
                 </Popup>
             </Marker>
             ))}

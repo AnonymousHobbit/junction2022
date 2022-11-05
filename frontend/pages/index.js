@@ -37,7 +37,7 @@ export default function Home() {
 
   const [locations, setLocations] = useState({});
   async function getLocations() {
-    const res = await axios.get('http://localhost:5000/test');
+    const res = await axios.get('http://localhost:5000/find_places');
     setLocations(res.data);
   }
 
