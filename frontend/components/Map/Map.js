@@ -12,6 +12,7 @@ import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 const Map = ({ coordinates, locations }) => {
     const [position, setPosition] = useState(coordinates);
     const [price, setPrice] = useState('')
+    const [dropOff, setDropOff] = useState('')
 
     const handleClick = (e) => {
         const { lat, lng } = e.latlng;
@@ -33,7 +34,7 @@ const Map = ({ coordinates, locations }) => {
     const selectDropoff = (key) => {
         console.log('dropoff selected')
         console.log(key)
-
+        setDropOff(key)
     }
 
     const findAddress = async (latlng) => {
