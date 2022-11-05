@@ -28,8 +28,6 @@ const Map = ({ coordinates, locations }) => {
             });
         })();
     }, []);
-
-    // loop over locations
     
     return (
         <MapContainer center={coordinates} zoom={13} scrollWheelZoom={false} style={{ height: 400, width: "100%" }}>
@@ -38,7 +36,7 @@ const Map = ({ coordinates, locations }) => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             
-            // loop over locations and create marker
+           
             {Object.keys(locations).map((key) => (
             <Marker position={locations[key]}>
                 <Popup position={locations[key]}>

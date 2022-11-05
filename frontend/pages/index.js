@@ -1,6 +1,7 @@
+import { useState, useEffect } from "react";
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-
+import axios from 'axios';
 import Map from '../components/Map';
 
 const DEFAULT_CENTER = [60.19, 24.94]
@@ -11,12 +12,19 @@ export default function Home() {
   /// kutsu tässä kohtaa apia joka hakee oikeat kohteet
   /// palauta koordinaatit ja nimet
   /// anna parametrina Map -komponentille
-  const locations = {
-    hospital1: [60.19632640805835, 24.884204864501957],
-    hospital2: [60.19880061755633, 24.90480422973633],
-    hospital3: [60.20170117734748, 24.94205474853516],
+  // https://localhost/
+  // https://localhost/test
+
+  const [locations, setLocations] = useState({});
+  async function getLocations() {
+    const res = await axios.get('http://localhost:5000/test');
+    setLocations(res.data);
   }
 
+  useEffect(() => {
+    getLocations();
+  }, []);
+  
   return (
     <main>
       <Head>
@@ -25,6 +33,8 @@ export default function Home() {
 
       <div className={styles.container}>
         <Map coordinates={DEFAULT_CENTER} locations={locations} />
+
+        
       </div>
     </main>
   )
