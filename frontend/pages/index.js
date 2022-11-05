@@ -50,11 +50,21 @@ export default function Home() {
       <Head>
         <title>GetRidOfIt</title>
       </Head>
+      <div>
+        <div className={styles.container}>
+          <div style={{ width: "50%" }}>
 
+<<<<<<< HEAD
       <div className={styles.container}>
         <Map coordinates={DEFAULT_CENTER} locations={locations} />
         <Form/>
+=======
+          </div>
+          <Map coordinates={DEFAULT_CENTER} locations={locations} />
+        </div>
+>>>>>>> 3f153a33c1a21d2a7ce5ae4ee8dacfb736a31bcf
       </div>
+      
     </main>
   )
 }
