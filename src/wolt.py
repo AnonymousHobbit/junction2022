@@ -84,13 +84,16 @@ def write_delivery_order_json(map_data, form_data):
   postalCode = form_data["address"]["postcode"]
   dropoffAddress = roadName + " " + houseNumber + ", " + postalCode + " " + cityName
 
-  itemDescription = "string"
-  itemCount = 1
+  # Create variables from form data to be used for item info
+  itemDescription = form_data["items"]["description"]
+  itemCount = form_data["items"]["count"]
 
-  pickupAddress = "Otakaari 24, 02150 Espoo"
-  dropoffAddress = "Otakaari 1, 02150 Espoo"
+  # Create variables from form data to be used for sender info
   pickupContactName = "string"
+  
+  # Create variables from form data to be used for receiver info
   dropoffContanctName = "string"
+
   delivery_order_json ={
     "pickup": {
       "location": {
@@ -167,5 +170,4 @@ def get_delivery_order(map_data, form_data):
   delivery_order = get_delivery(delivery_order_json)
   delivery_order_link = delivery_order["tracking"]["url"]
   return delivery_order_link
-
 
