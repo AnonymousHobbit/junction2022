@@ -14,5 +14,4 @@ const AddressForm = ({newAddress, setNewAddress}) => {
       )
   }
 
-
 export default AddressForm

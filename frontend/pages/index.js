@@ -43,6 +43,11 @@ export default function Home() {
     }
   }
 
+  const addAddress = () => {
+
+
+  }
+
   return (
     <main>
       <Head>
@@ -58,7 +63,8 @@ export default function Home() {
                   handleIncreaseClick={handleIncreaseClick}
                   counter={counter}
                   setNewName={setNewName}
-                  newName={newName}/>
+                  newName={newName}
+                  address={newAddress}/>
           </div>
           <Map coordinates={DEFAULT_CENTER} locations={locations} />
         </div>
