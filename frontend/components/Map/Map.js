@@ -9,7 +9,7 @@ import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
-const Map = ({ coordinates, locations }) => {
+const Map = ({ coordinates, locations, info }) => {
     const [position, setPosition] = useState(coordinates);
     const [price, setPrice] = useState('')
     const [dropOff, setDropOff] = useState('')
@@ -39,7 +39,7 @@ const Map = ({ coordinates, locations }) => {
 
     const findAddress = async (latlng) => {
         console.log(latlng)
-        let res = await axios.post(`http://localhost:5000/find_address`, {latlng})
+        let res = await axios.post(`http://localhost:5000/find_address`, {info, latlng})
         console.log(res.data)
         setPrice(res.data)
     }
