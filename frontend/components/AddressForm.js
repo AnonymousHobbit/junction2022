@@ -17,7 +17,6 @@ const AddressForm = ({ setInfo, selectedLibrary }) => {
         setInfo({address, housenumber, postalcode, city})
     }
 
-    
     return (
       <div>
       <form className={styles.form} onSubmit={handleSubmit} selectedLibrary = {selectedLibrary}>

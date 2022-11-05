@@ -4,7 +4,6 @@ import styles from '../styles/Home.module.css'
 import axios from 'axios';
 import Map from '../components/Map';
 import AddressForm from '../components/AddressForm';
-import OrderForm from '../components/OrderForm';
 
 const DEFAULT_CENTER = [60.19, 24.94]
 
