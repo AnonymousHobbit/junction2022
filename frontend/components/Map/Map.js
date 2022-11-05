@@ -11,6 +11,7 @@ import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
 const Map = ({ coordinates, locations }) => {
     const [position, setPosition] = useState(coordinates);
+    const [price, setPrice] = useState('')
 
     const handleClick = (e) => {
         const { lat, lng } = e.latlng;
@@ -32,6 +33,8 @@ const Map = ({ coordinates, locations }) => {
     const findAddress = async (latlng) => {
         console.log(latlng)
         let res = await axios.post(`http://localhost:5000/find_address`, {latlng})
+        console.log(res.data)
+        ///setPrice()
     }
     return (
         <MapContainer center={coordinates} zoom={13} scrollWheelZoom={false} style={{ height: "95vh", width: "50%" }}>
@@ -46,7 +49,7 @@ const Map = ({ coordinates, locations }) => {
                 }
             }}>
                 <Popup position={locations[key]}>
-                    Drop-off alternative: <pre>{JSON.stringify(key, null, 2)}</pre>
+                    Drop-off alternative: <pre>{JSON.stringify(key.split(',')[0], null, 2)}</pre>
                 </Popup>
             </Marker>
             ))}

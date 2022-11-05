@@ -30,7 +30,7 @@ def find_address():
         test_address_dict = {'address': test_address}
         price = wolt.get_delivery_price(address_dict, test_address_dict)
         print(price)
-        return address
+        return price
 
 @app.route('/find_places', methods = ['GET', 'POST'])
 def find_places():
