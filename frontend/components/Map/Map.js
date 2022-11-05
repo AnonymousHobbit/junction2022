@@ -9,7 +9,6 @@ import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
 const Map = ({ coordinates, locations }) => {
-    
     const [position, setPosition] = useState(coordinates);
 
     const handleClick = (e) => {
